@@ -31,8 +31,10 @@ window.addEventListener('DOMContentLoaded', () => {
     imageSrcArr.forEach(img => {
       let card = `
         <div class='card'>
-          <div class='card-back'></div>
-          <img class='card-front' src="./images/${img}" alt="find it's match!"/>
+          <div class='card-inner'>
+            <div class='card-back'></div>
+            <img class='card-front' src="./images/${img}" alt="find it's match!"/>
+          </div>
         </div>
       `
       gameboard.insertAdjacentHTML("beforeend", card);
