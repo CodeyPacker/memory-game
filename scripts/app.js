@@ -3,7 +3,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const difficulty = document.getElementById('difficulty');
   const theme = document.getElementById('theme');
   const imageSrcArr = [];
-
   const options = {
     'theme': theme.value,
     'difficulty': difficulty.value,
@@ -44,7 +43,6 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   const animateCard = (card) => card.classList.add('animated');
-
   let round = 1;
   let round1Selection;
   let round2Selection;
@@ -65,17 +63,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const roundTwo = (card) => {
     round2Selection = card.currentTarget;
-
     animateCard(round2Selection);
     round = 2;
-
     const src1 = round1Selection.querySelector('.card-front').src;
     const src2 = round2Selection.querySelector('.card-front').src;
 
     // Check for match
     if (src1 === src2) {
       // check if all cards have a class of animated, if so, end game, else, reset round
-      // reset round
       round = 1;
     } else {
       setTimeout(resetRound, 2000);
@@ -88,11 +83,7 @@ window.addEventListener('DOMContentLoaded', () => {
     cards.forEach((card) => {
       card.addEventListener('click', (event) => {
         // if round 1, add animation, clear and store new img src for checking in round 2
-        if (round === 1) {
-          roundOne(event);
-        } else {
-          roundTwo(event);
-        }
+        round === 1 ? roundOne(event) : roundTwo(event);
       });
     });
   }
@@ -104,5 +95,4 @@ window.addEventListener('DOMContentLoaded', () => {
     createBoard();
     addCardListeners();
   });
-
 });
