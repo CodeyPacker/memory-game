@@ -26,7 +26,7 @@
   border-radius: 5px;
 }
 
-.card:hover .card-inner {
+.card.animated .card-inner {
   transform: rotateY(180deg);
 }
 
