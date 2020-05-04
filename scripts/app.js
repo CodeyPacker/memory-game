@@ -2,9 +2,10 @@ window.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('.form');
   const difficulty = document.getElementById('difficulty');
   const theme = document.getElementById('theme');
-  const imageSrcArr = [];
+  let imageSrcArr = [];
   let cards;
   let isWinner = false;
+  const gameboard = document.querySelector('.gameboard');
 
   const options = {
     'theme': theme.value,
@@ -29,8 +30,6 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   // Loop over images and insert card element into the DOM
-  const gameboard = document.querySelector('.gameboard');
-
   const createBoard = () => {
     imageSrcArr.forEach(img => {
       let card = `
@@ -58,6 +57,17 @@ window.addEventListener('DOMContentLoaded', () => {
     round2Selection = '';
   }
 
+  const resetGame = () => {
+    round2Selection.classList.remove('fail', 'success', 'selected');
+    round2Selection.classList.remove('fail', 'success', 'selected');
+    round = 1;
+    imageSrcArr = [];
+    cards = [];
+    while (gameboard.firstChild) { gameboard.removeChild(gameboard.lastChild); }
+    form.classList.remove('hide');
+    playAgain.classList.add('hide');
+  }
+
   const roundOne = (card) => {
     round1Selection = card.currentTarget;
     round1Selection.classList.add('selected');
@@ -80,11 +90,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
       // Check if all cards have a class of animated
       isWinner = cards.every(x => x.classList.contains('animated') )
-      if (!isWinner) {
-        round = 1;
-      } else { // end game
-        console.log('You win!');
-      }
+      if (!isWinner) { round = 1; }
+      else { playAgain.classList.remove('hide'); } // end game
     } else { // failed and reset round
       round2Selection.classList.add('fail');
       round1Selection.classList.add('fail');
@@ -96,32 +103,31 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  const cardClickEvent = (event) => {
-    // if round 1, add animation, clear and store new img src for checking in round 2
-    round === 1 ? roundOne(event) : roundTwo(event);
-  }
+  // if round 1, add animation, clear and store new img src for checking in round 2
+  const cardClickEvent = (event) => { round === 1 ? roundOne(event) : roundTwo(event); }
+
+  // EVENT LISTENERS
 
   // Since cards are injected after form submission, add listeners after form submit
   const addCardListeners = (cardArr = cards) => {
-    cardArr.forEach((card) => {
-      card.addEventListener('click', cardClickEvent);
-    });
+    cardArr.forEach((card) => { card.addEventListener('click', cardClickEvent); });
   }
 
   const timeoutCardListeners = () => {
-
-    cards.forEach((card) => {
-      card.removeEventListener('click', cardClickEvent);
-    });
+    cards.forEach((card) => { card.removeEventListener('click', cardClickEvent); });
     setTimeout(addCardListeners, 1000);
   }
 
-  // Event listeners
+  const playAgain = document.querySelector('.play-again');
+  playAgain.addEventListener('click', resetGame);
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     generateThemeImages();
     createBoard();
     cards = [...document.querySelectorAll('.card')];
     addCardListeners(cards);
+    form.classList.add('hide');
+    if (!playAgain.classList.contains('hide')) { playAgain.classList.add('hide'); }
   });
 });

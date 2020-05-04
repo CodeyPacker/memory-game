@@ -3,23 +3,39 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css"/>
     <title>Memory Game</title>
   </head>
   <body>
     <header>
-      <p class="logo">Memory Game</p>
+      <div class="header-content-wrapper constraint">
+        <img class="logo" src="./images/logo.svg" alt="Memory game icon">
+        <div class="logo-text-wrapper">
+          <p class="logo-text">Memory</p>
+          <p class="logo-text">Matcher</p>
+        </div>
+      </div>
     </header>
-    <section class="start-game-form">
+    <section class="start-game-form constraint">
       <form action="" class="form">
-        <input type="radio" id="difficulty" name="difficulty" value="4"/>
-        <label for="difficulty">8</label>
-        <input type="radio" id="theme" name="theme" value="animals"/>
-        <label for="theme">Animals</label>
-        <button type="submit" value="submit">Go!</button>
+        <div class="flex-container">
+          <div class="question">
+            <p>Difficulty:</p>
+            <input type="radio" id="difficulty" name="difficulty" value="4" checked/>
+            <label for="difficulty">8</label>
+          </div>
+          <div class="question">
+            <p>Theme:</p>
+            <input type="radio" id="theme" name="theme" value="animals" checked/>
+            <label for="theme">Animals</label>
+          </div>
+        </div>
+        <button class="submit" type="submit" value="submit">Go!</button>
       </form>
+      <button class="play-again hide">Play again?</button>
     </section>
-    <section class="gameboard">
+    <section class="gameboard constraint">
 
     </section>
     <script src="./scripts/app.js"></script>
