@@ -60,6 +60,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const roundOne = (card) => {
     round1Selection = card.currentTarget;
+    round1Selection.classList.add('selected');
     animateCard(round1Selection);
     round += 1;
   }
@@ -73,10 +74,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const src2 = round2Selection.querySelector('.card-front').src;
 
     // Check for match
-    if (src1 === src2) {
+    if ((src1 === src2) && (!round2Selection.classList.contains('selected'))) {
       round2Selection.classList.add('success');
       round1Selection.classList.add('success');
 
+      // Check if all cards have a class of animated
       isWinner = cards.every(x => x.classList.contains('animated') )
       if (!isWinner) {
         round = 1;
@@ -87,10 +89,10 @@ window.addEventListener('DOMContentLoaded', () => {
       round2Selection.classList.add('fail');
       round1Selection.classList.add('fail');
       setTimeout(function() {
-        round2Selection.classList.remove('fail');
-        round1Selection.classList.remove('fail');
-      }, 1500);
-      setTimeout(resetRound, 1500);
+        round2Selection.classList.remove('fail', 'selected');
+        round1Selection.classList.remove('fail', 'selected');
+      }, 1000);
+      setTimeout(resetRound, 1000);
     }
   }
 
@@ -101,8 +103,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Since cards are injected after form submission, add listeners after form submit
   const addCardListeners = (cardArr = cards) => {
-    console.log(cardArr);
-
     cardArr.forEach((card) => {
       card.addEventListener('click', cardClickEvent);
     });
@@ -113,7 +113,7 @@ window.addEventListener('DOMContentLoaded', () => {
     cards.forEach((card) => {
       card.removeEventListener('click', cardClickEvent);
     });
-    setTimeout(addCardListeners, 1500);
+    setTimeout(addCardListeners, 1000);
   }
 
   // Event listeners
