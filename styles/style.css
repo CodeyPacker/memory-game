@@ -15,6 +15,16 @@
   display: inline-block;
 }
 
+.card.fail .card-inner {
+  box-shadow: 0 0px 8px 0 rgba(228, 0, 24, 0.73);
+  transition: box-shadow .3s;
+}
+
+.card.success .card-inner {
+  box-shadow: 0 0px 8px 0 rgb(7, 136, 8);
+  transition: box-shadow .3s;
+}
+
 .card-inner {
   position: relative;
   width: 100%;
@@ -22,7 +32,6 @@
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   border-radius: 5px;
 }
 

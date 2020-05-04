@@ -3,6 +3,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const difficulty = document.getElementById('difficulty');
   const theme = document.getElementById('theme');
   const imageSrcArr = [];
+  let cards;
+  let isWinner = false;
+
   const options = {
     'theme': theme.value,
     'difficulty': difficulty.value,
@@ -70,16 +73,29 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Check for match
     if (src1 === src2) {
-      // check if all cards have a class of animated, if so, end game, else, reset round
-      round = 1;
+      round2Selection.classList.add('success');
+      round1Selection.classList.add('success');
+
+      isWinner = cards.every(x => x.classList.contains('animated') )
+      if (!isWinner) {
+        round = 1;
+      } else {
+        console.log('You win!');
+      }
     } else {
-      setTimeout(resetRound, 2000);
+      round2Selection.classList.add('fail');
+      round1Selection.classList.add('fail');
+      setTimeout(function() {
+        round2Selection.classList.remove('fail');
+        round1Selection.classList.remove('fail');
+      }, 1500);
+      setTimeout(resetRound, 1500);
     }
   }
 
   // Since cards are injected after form submission, add listeners after form submit
   const addCardListeners = () => {
-    const cards = [...document.querySelectorAll('.card')];
+    cards = [...document.querySelectorAll('.card')];
     cards.forEach((card) => {
       card.addEventListener('click', (event) => {
         // if round 1, add animation, clear and store new img src for checking in round 2
