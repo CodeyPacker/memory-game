@@ -65,6 +65,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   const roundTwo = (card) => {
+    timeoutCardListeners();
     round2Selection = card.currentTarget;
     animateCard(round2Selection);
     round = 2;
@@ -79,10 +80,10 @@ window.addEventListener('DOMContentLoaded', () => {
       isWinner = cards.every(x => x.classList.contains('animated') )
       if (!isWinner) {
         round = 1;
-      } else {
+      } else { // end game
         console.log('You win!');
       }
-    } else {
+    } else { // failed and reset round
       round2Selection.classList.add('fail');
       round1Selection.classList.add('fail');
       setTimeout(function() {
@@ -93,15 +94,26 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  const cardClickEvent = (event) => {
+    // if round 1, add animation, clear and store new img src for checking in round 2
+    round === 1 ? roundOne(event) : roundTwo(event);
+  }
+
   // Since cards are injected after form submission, add listeners after form submit
-  const addCardListeners = () => {
-    cards = [...document.querySelectorAll('.card')];
-    cards.forEach((card) => {
-      card.addEventListener('click', (event) => {
-        // if round 1, add animation, clear and store new img src for checking in round 2
-        round === 1 ? roundOne(event) : roundTwo(event);
-      });
+  const addCardListeners = (cardArr = cards) => {
+    console.log(cardArr);
+
+    cardArr.forEach((card) => {
+      card.addEventListener('click', cardClickEvent);
     });
+  }
+
+  const timeoutCardListeners = () => {
+
+    cards.forEach((card) => {
+      card.removeEventListener('click', cardClickEvent);
+    });
+    setTimeout(addCardListeners, 1500);
   }
 
   // Event listeners
@@ -109,6 +121,7 @@ window.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     generateThemeImages();
     createBoard();
-    addCardListeners();
+    cards = [...document.querySelectorAll('.card')];
+    addCardListeners(cards);
   });
 });
