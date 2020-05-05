@@ -20,7 +20,6 @@ html { min-height: 100vh; }
 
 header {
   box-shadow: 0 4px 8px 0 var(--shadow);
-  margin-bottom: 16px;
 }
 
 .header-content-wrapper {
@@ -29,7 +28,7 @@ header {
   padding: 15px;
 }
 
-.logo { max-width: 50px; }
+.logo { max-width: 40px; }
 
 .logo-text {
   margin-top: 0;
@@ -51,14 +50,15 @@ header {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 30px auto;
+  margin: 20px auto;
 }
 
+/* 135 works well for mobile */
 .card {
   margin: 10px;
   background-color: transparent;
-  width: 150px;
-  height: 150px;
+  width: 135px;
+  height: 135px;
   perspective: 1000px;
   border-radius: 5px;
   display: inline-block;
