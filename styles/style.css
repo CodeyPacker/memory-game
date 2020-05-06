@@ -154,6 +154,7 @@ label {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  text-align: center;
 }
 
 .submit, .play-again {
