@@ -125,6 +125,37 @@ header {
 }
 
 /* Form styles */
+.form { margin-top: 20px; }
+
+.question-heading {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.check {
+  max-width: 50px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--white);
+}
+
+label input:checked ~ .check {
+ border: 1px solid var(--blue);
+}
+
+label {
+  position: relative;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .submit, .play-again {
   display: block;
   padding: 20px;
@@ -138,17 +169,25 @@ header {
   min-width: 200px;
 }
 
-form .flex-container {
+.form .flex-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   padding-bottom: 30px;
   max-width: 400px;
   margin: auto;
 }
 
-.question { margin-right: 30px; }
 
-@media only screen and (min-width: 500px) {
+input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+@media only screen and (min-width: 678px) {
   .logo { max-width: 75px; }
 
   .card {

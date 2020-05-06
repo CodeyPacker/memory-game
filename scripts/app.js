@@ -1,14 +1,12 @@
 window.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('.form');
   const difficulty = document.getElementById('difficulty');
-  const theme = document.getElementById('theme');
   let imageSrcArr = [];
   let cards;
   let isWinner = false;
   const gameboard = document.querySelector('.gameboard');
 
   const options = {
-    'theme': theme.value,
     'difficulty': difficulty.value,
   }
 
@@ -123,6 +121,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    options.theme = document.querySelector('input[name="theme"]:checked').value;
+    console.log(options.theme);
+
     generateThemeImages();
     createBoard();
     cards = [...document.querySelectorAll('.card')];
